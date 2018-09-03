@@ -8,7 +8,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        let viewController = UINavigationController(rootViewController: MapViewController())
+        let viewController = MapViewController()
         window?.rootViewController = viewController
         
         return true
