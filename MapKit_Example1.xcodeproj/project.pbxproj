@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2E00D062213D766B00376B0A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E00D061213D766B00376B0A /* AppDelegate.swift */; };
-		2E00D064213D766B00376B0A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E00D063213D766B00376B0A /* ViewController.swift */; };
+		2E00D064213D766B00376B0A /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E00D063213D766B00376B0A /* MapViewController.swift */; };
 		2E00D067213D766B00376B0A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2E00D065213D766B00376B0A /* Main.storyboard */; };
 		2E00D069213D766D00376B0A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2E00D068213D766D00376B0A /* Assets.xcassets */; };
 		2E00D06C213D766D00376B0A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2E00D06A213D766D00376B0A /* LaunchScreen.storyboard */; };
@@ -17,7 +17,7 @@
 /* Begin PBXFileReference section */
 		2E00D05E213D766B00376B0A /* MapKit_Example1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapKit_Example1.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E00D061213D766B00376B0A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		2E00D063213D766B00376B0A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		2E00D063213D766B00376B0A /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		2E00D066213D766B00376B0A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		2E00D068213D766D00376B0A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2E00D06B213D766D00376B0A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -55,7 +55,7 @@
 			isa = PBXGroup;
 			children = (
 				2E00D061213D766B00376B0A /* AppDelegate.swift */,
-				2E00D063213D766B00376B0A /* ViewController.swift */,
+				2E00D063213D766B00376B0A /* MapViewController.swift */,
 				2E00D065213D766B00376B0A /* Main.storyboard */,
 				2E00D068213D766D00376B0A /* Assets.xcassets */,
 				2E00D06A213D766D00376B0A /* LaunchScreen.storyboard */,
@@ -135,7 +135,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2E00D064213D766B00376B0A /* ViewController.swift in Sources */,
+				2E00D064213D766B00376B0A /* MapViewController.swift in Sources */,
 				2E00D062213D766B00376B0A /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -292,7 +292,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "axaneo.MapKit-Example1";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -310,7 +310,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "axaneo.MapKit-Example1";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

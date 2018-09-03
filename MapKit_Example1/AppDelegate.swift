@@ -1,11 +1,3 @@
-//
-//  AppDelegate.swift
-//  MapKit_Example1
-//
-//  Created by Marcin Karski on 03/09/2018.
-//  Copyright © 2018 Marcin Karski. All rights reserved.
-//
-
 import UIKit
 
 @UIApplicationMain
@@ -15,7 +7,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        let viewController = UINavigationController(rootViewController: MapViewController())
+        window?.rootViewController = viewController
+        
         return true
     }
 
