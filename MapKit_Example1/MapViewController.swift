@@ -20,9 +20,9 @@ class MapViewController: UIViewController {
         guard let data = optionalData,
             let json = try? JSONSerialization.jsonObject(with: data),
             let dictionary = json as? [String: Any],
-            let works = dictionary["places"] as? [[Any]] else { return }
-        let validWorks = works.compactMap { Annotation(json: $0) }
-        annotations.append(contentsOf: validWorks)
+            let places = dictionary["places"] as? [[Any]] else { return }
+        let validPlaces = places.compactMap { Annotation(json: $0) }
+        annotations.append(contentsOf: validPlaces)
     }
     
     override func viewDidLoad() {
@@ -47,9 +47,8 @@ class MapViewController: UIViewController {
         mapView.showsCompass = true
         mapView.showsPointsOfInterest = true
         mapView.showsUserLocation = true
-        mapView.register(MKMarkerAnnotationView.self, forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
+        mapView.register(AnnotationView.self, forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
         view.addSubview(mapView)
-        
     }
     
     fileprivate func centerViewOnUserLocation() {
@@ -84,18 +83,18 @@ class MapViewController: UIViewController {
 
 extension MapViewController: MKMapViewDelegate {
     
-    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? { guard annotation is Annotation else { return nil }
-        let identifier = "marker"
-        var view: MKMarkerAnnotationView
-        if let dequeuedView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
-            as? MKMarkerAnnotationView {
-            dequeuedView.annotation = annotation
-            view = dequeuedView
-        } else {
-            view = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: identifier)
-        }
-        return view
-    }
+//    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? { guard annotation is Annotation else { return nil }
+//        let identifier = "marker"
+//        var view: MKMarkerAnnotationView
+//        if let dequeuedView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
+//            as? MKMarkerAnnotationView {
+//            dequeuedView.annotation = annotation
+//            view = dequeuedView
+//        } else {
+//            view = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+//        }
+//        return view
+//    }
 }
 
 extension MapViewController: CLLocationManagerDelegate {

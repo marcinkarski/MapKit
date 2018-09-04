@@ -1,0 +1,22 @@
+{
+    "places": [
+                [
+                "51.533051", "-0.240542",
+                "Oscar",
+                "Coffee Shop",
+                "Eat"
+                ],
+                [
+                "51.532221", "-0.238570",
+                "Texaco",
+                "Petrol Station",
+                "Shop"
+                ],
+                [
+                "51.533514", "-0.239643",
+                "Shalprika",
+                "Newsagent",
+                "See"
+                ]
+                ]
+}
