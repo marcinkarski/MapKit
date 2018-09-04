@@ -32,7 +32,7 @@ final class Annotation: NSObject, MKAnnotation {
         case "Eat":
             return .red
         case "See":
-            return .cyan
+            return .purple
         case "Shop":
             return .blue
         default:
