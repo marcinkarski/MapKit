@@ -12,6 +12,9 @@
 		2E00D067213D766B00376B0A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2E00D065213D766B00376B0A /* Main.storyboard */; };
 		2E00D069213D766D00376B0A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2E00D068213D766D00376B0A /* Assets.xcassets */; };
 		2E00D06C213D766D00376B0A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2E00D06A213D766D00376B0A /* LaunchScreen.storyboard */; };
+		2E00D074213E733800376B0A /* Annotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E00D073213E733800376B0A /* Annotation.swift */; };
+		2E00D077213E873300376B0A /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E00D076213E873300376B0A /* MapKit.framework */; };
+		2E00D079213EC97A00376B0A /* Locations.json in Resources */ = {isa = PBXBuildFile; fileRef = 2E00D078213EC97A00376B0A /* Locations.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +25,9 @@
 		2E00D068213D766D00376B0A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2E00D06B213D766D00376B0A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2E00D06D213D766D00376B0A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2E00D073213E733800376B0A /* Annotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Annotation.swift; sourceTree = "<group>"; };
+		2E00D076213E873300376B0A /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		2E00D078213EC97A00376B0A /* Locations.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Locations.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +35,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2E00D077213E873300376B0A /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -40,6 +47,7 @@
 			children = (
 				2E00D060213D766B00376B0A /* MapKit_Example1 */,
 				2E00D05F213D766B00376B0A /* Products */,
+				2E00D075213E873300376B0A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -56,12 +64,22 @@
 			children = (
 				2E00D061213D766B00376B0A /* AppDelegate.swift */,
 				2E00D063213D766B00376B0A /* MapViewController.swift */,
+				2E00D073213E733800376B0A /* Annotation.swift */,
 				2E00D065213D766B00376B0A /* Main.storyboard */,
 				2E00D068213D766D00376B0A /* Assets.xcassets */,
 				2E00D06A213D766D00376B0A /* LaunchScreen.storyboard */,
 				2E00D06D213D766D00376B0A /* Info.plist */,
+				2E00D078213EC97A00376B0A /* Locations.json */,
 			);
 			path = MapKit_Example1;
+			sourceTree = "<group>";
+		};
+		2E00D075213E873300376B0A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2E00D076213E873300376B0A /* MapKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -96,6 +114,11 @@
 				TargetAttributes = {
 					2E00D05D213D766B00376B0A = {
 						CreatedOnToolsVersion = 10.0;
+						SystemCapabilities = {
+							com.apple.Maps.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -124,6 +147,7 @@
 			files = (
 				2E00D06C213D766D00376B0A /* LaunchScreen.storyboard in Resources */,
 				2E00D069213D766D00376B0A /* Assets.xcassets in Resources */,
+				2E00D079213EC97A00376B0A /* Locations.json in Resources */,
 				2E00D067213D766B00376B0A /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -136,6 +160,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2E00D064213D766B00376B0A /* MapViewController.swift in Sources */,
+				2E00D074213E733800376B0A /* Annotation.swift in Sources */,
 				2E00D062213D766B00376B0A /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

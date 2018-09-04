@@ -3,11 +3,32 @@ import MapKit
 
 class MapViewController: UIViewController {
     
-    lazy var mapView = MKMapView(frame: UIScreen.main.bounds)
-    let locationManager = CLLocationManager()
+    private lazy var mapView = MKMapView(frame: UIScreen.main.bounds)
+    
+    private lazy var locationManager: CLLocationManager = {
+        let manager = CLLocationManager()
+        manager.delegate = self
+        manager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+        return manager
+    }()
+    
+    var annotations: [Annotation] = []
+    
+    fileprivate func loadInitialData() {
+        guard let jsonFile = Bundle.main.path(forResource: "Locations", ofType: "json") else { return }
+        let optionalData = try? Data(contentsOf: URL(fileURLWithPath: jsonFile))
+        guard let data = optionalData,
+            let json = try? JSONSerialization.jsonObject(with: data),
+            let dictionary = json as? [String: Any],
+            let works = dictionary["places"] as? [[Any]] else { return }
+        let validWorks = works.compactMap { Annotation(json: $0) }
+        annotations.append(contentsOf: validWorks)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        loadInitialData()
+        mapView.addAnnotations(annotations)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -26,45 +47,55 @@ class MapViewController: UIViewController {
         mapView.showsCompass = true
         mapView.showsPointsOfInterest = true
         mapView.showsUserLocation = true
+        mapView.register(MKMarkerAnnotationView.self, forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
         view.addSubview(mapView)
         
     }
     
     fileprivate func centerViewOnUserLocation() {
         if let location = locationManager.location?.coordinate {
-            let region = MKCoordinateRegion.init(center: location, latitudinalMeters: 10000, longitudinalMeters: 10000)
+            let region = MKCoordinateRegion.init(center: location, latitudinalMeters: 400, longitudinalMeters: 400)
             mapView.setRegion(region, animated: true)
         }
     }
     
     fileprivate func checkLocationServices() {
         if CLLocationManager.locationServicesEnabled() {
-            locationManager.delegate = self
-            locationManager.desiredAccuracy = kCLLocationAccuracyBest
-            checkLocationAuthorization()
+            requestLocationAccess()
         } else {
             print("Show alert")
         }
     }
     
-    fileprivate func checkLocationAuthorization() {
-        switch CLLocationManager.authorizationStatus() {
-        case .authorizedWhenInUse:
+    fileprivate func requestLocationAccess() {
+        let status = CLLocationManager.authorizationStatus()
+        switch status {
+        case .authorizedAlways, .authorizedWhenInUse:
             centerViewOnUserLocation()
         case .denied:
-            break
+            print("I can't show location. User has not authorized it")
         case .notDetermined:
             locationManager.requestWhenInUseAuthorization()
         case .restricted:
-            break
-        case .authorizedAlways:
-            break
+            print("Access denied - likely parental controls are restricting use in this app.")
         }
     }
 }
 
 extension MapViewController: MKMapViewDelegate {
     
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? { guard annotation is Annotation else { return nil }
+        let identifier = "marker"
+        var view: MKMarkerAnnotationView
+        if let dequeuedView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
+            as? MKMarkerAnnotationView {
+            dequeuedView.annotation = annotation
+            view = dequeuedView
+        } else {
+            view = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+        }
+        return view
+    }
 }
 
 extension MapViewController: CLLocationManagerDelegate {
@@ -73,6 +104,6 @@ extension MapViewController: CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        checkLocationAuthorization()
+        requestLocationAccess()
     }
 }
