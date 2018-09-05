@@ -5,7 +5,7 @@ class AnnotationView: MKMarkerAnnotationView {
         willSet {
             guard let place = newValue as? Annotation else { return }
             markerTintColor = place.markerTintColour
-            glyphText = String((place.type?.first!)!)
+//            glyphText = String((place.type?.first!)!)
         }
     }
 }

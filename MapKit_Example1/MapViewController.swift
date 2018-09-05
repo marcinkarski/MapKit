@@ -3,7 +3,7 @@ import MapKit
 
 class MapViewController: UIViewController {
     
-    private lazy var mapView = MKMapView(frame: UIScreen.main.bounds)
+    private lazy var mapView = MKMapView(frame: view.bounds)
     
     private lazy var locationManager: CLLocationManager = {
         let manager = CLLocationManager()
@@ -49,6 +49,7 @@ class MapViewController: UIViewController {
         mapView.showsUserLocation = true
         mapView.register(AnnotationView.self, forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
         view.addSubview(mapView)
+        mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
     }
     
     fileprivate func centerViewOnUserLocation() {
