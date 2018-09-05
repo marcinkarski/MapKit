@@ -54,6 +54,13 @@ class MapViewController: UIViewController {
         super.viewDidAppear(true)
         checkLocationServices()
         addBottomView()
+        bottomView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(bottomViewTapped)))
+    }
+    
+    @objc func bottomViewTapped(gesture: UITapGestureRecognizer) {
+        let imageController = ModalViewController()
+        imageController.modalPresentationStyle = .overCurrentContext
+        present(imageController, animated: true, completion: nil)
     }
     
     func addBottomView() {
