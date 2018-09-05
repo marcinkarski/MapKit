@@ -6,7 +6,7 @@ class MapViewController: UIViewController {
     let screenWidth: CGFloat = UIScreen.main.bounds.width
     let screenHeight: CGFloat = UIScreen.main.bounds.height
     
-    var bottomView: BottomView?
+//    var bottomView: BottomView?
     var bottomViewHidden = false
     var bottomViewOffset: CGFloat = 0.0
     
@@ -19,15 +19,15 @@ class MapViewController: UIViewController {
         return manager
     }()
     
-//    let bottomView: UIView = {
-//        let view = UIView()
-////        let frame = CGRect(x: 0, y: 50, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height - 50)
-////        view.frame = frame
-//        view.backgroundColor = .lightGray
-//        view.layer.cornerRadius = 3
-//        view.layer.masksToBounds = true
-//        return view
-//    }()
+    var bottomView: UIView = {
+        let view = UIView()
+        let frame = CGRect(x: 0, y: 700, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height - 600)
+        view.frame = frame
+        view.backgroundColor = .lightGray
+        view.layer.cornerRadius = 3
+        view.layer.masksToBounds = true
+        return view
+    }()
     
     var annotations: [Annotation] = []
     
@@ -60,33 +60,31 @@ class MapViewController: UIViewController {
     }
     
     func addBottomView() {
-        if bottomView == nil {
-            let validView = UIView() as? BottomView
-            validView?.frame = CGRect(x: 0, y: self.screenHeight - 70, width: self.screenWidth, height: 70)
-            view.addSubview(validView!)
-            validView?.slideInFromBottom()
-            bottomView = validView
-        }
+//        view.frame = CGRect(x: 0, y: self.screenHeight - 70, width: self.screenWidth, height: 70)
+        view.addSubview(bottomView)
+        
+//            bottomView.slideInFromBottom()
+        
     }
     
     func hideBottomView(view: UIView) {
-        if !bottomViewHidden {
+
             UIView.animate(withDuration: 0.3, delay: 0.0, options: UIView.AnimationOptions.curveEaseInOut, animations: {
                 view.frame = CGRect(x: 0, y: self.screenHeight, width: self.screenWidth, height: 70)
             }, completion: { finished in
                 self.bottomViewHidden = true
             })
-        }
+        
     }
     
     func unhideBottomView(view: UIView?) {
-        if !bottomViewHidden {
+
             UIView.animate(withDuration: 0.3, delay: 0.0, options: UIView.AnimationOptions.curveEaseInOut, animations: {
                 view?.frame = CGRect(x: 0, y: self.screenHeight - 70, width: self.screenWidth, height: 70)
             }, completion: { finished in
                 self.bottomViewHidden = false
             })
-        }
+        
     }
     
 //    func removeBottomView() {
@@ -140,11 +138,11 @@ class MapViewController: UIViewController {
 extension MapViewController: MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        //
+        unhideBottomView(view: bottomView)
     }
     
     func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
-        //
+        hideBottomView(view: bottomView)
     }
     
 //    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? { guard annotation is Annotation else { return nil }
