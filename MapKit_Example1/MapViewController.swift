@@ -19,6 +19,16 @@ class MapViewController: UIViewController {
         return manager
     }()
     
+//    let bottomView: UIView = {
+//        let view = UIView()
+////        let frame = CGRect(x: 0, y: 50, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height - 50)
+////        view.frame = frame
+//        view.backgroundColor = .lightGray
+//        view.layer.cornerRadius = 3
+//        view.layer.masksToBounds = true
+//        return view
+//    }()
+    
     var annotations: [Annotation] = []
     
     fileprivate func loadInitialData() {
@@ -51,10 +61,11 @@ class MapViewController: UIViewController {
     
     func addBottomView() {
         if bottomView == nil {
-            let bottomView = BottomView()
-            bottomView.frame = CGRect(x: 0, y: self.screenHeight - 70, width: self.screenWidth, height: 70)
-            view.addSubview(bottomView)
-            bottomView.slideInFromBottom()
+            let validView = UIView() as? BottomView
+            validView?.frame = CGRect(x: 0, y: self.screenHeight - 70, width: self.screenWidth, height: 70)
+            view.addSubview(validView!)
+            validView?.slideInFromBottom()
+            bottomView = validView
         }
     }
     
@@ -68,22 +79,22 @@ class MapViewController: UIViewController {
         }
     }
     
-    func unhideBottomView(view: UIView) {
+    func unhideBottomView(view: UIView?) {
         if !bottomViewHidden {
             UIView.animate(withDuration: 0.3, delay: 0.0, options: UIView.AnimationOptions.curveEaseInOut, animations: {
-                view.frame = CGRect(x: 0, y: self.screenHeight - 70, width: self.screenWidth, height: 70)
+                view?.frame = CGRect(x: 0, y: self.screenHeight - 70, width: self.screenWidth, height: 70)
             }, completion: { finished in
                 self.bottomViewHidden = false
             })
         }
     }
     
-    func removeBottomView() {
-        if let view = bottomView {
-            view.removeFromSuperview()
-            self.bottomView = nil
-        }
-    }
+//    func removeBottomView() {
+//        if let view = bottomView {
+//            view.removeFromSuperview()
+//            self.bottomView = nil
+//        }
+//    }
     
     fileprivate func configureMapView() {
         mapView.delegate = self
@@ -129,7 +140,7 @@ class MapViewController: UIViewController {
 extension MapViewController: MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        addBottomView()
+        //
     }
     
     func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
