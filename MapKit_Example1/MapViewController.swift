@@ -5,10 +5,7 @@ class MapViewController: UIViewController {
     
     let screenWidth: CGFloat = UIScreen.main.bounds.width
     let screenHeight: CGFloat = UIScreen.main.bounds.height
-    
-//    var bottomView: BottomView?
     var bottomViewHidden = false
-    var bottomViewOffset: CGFloat = 0.0
     
     private lazy var mapView = MKMapView(frame: view.bounds)
     
@@ -68,23 +65,19 @@ class MapViewController: UIViewController {
     }
     
     func hideBottomView(view: UIView) {
-
             UIView.animate(withDuration: 0.3, delay: 0.0, options: UIView.AnimationOptions.curveEaseInOut, animations: {
                 view.frame = CGRect(x: 0, y: self.screenHeight, width: self.screenWidth, height: 70)
             }, completion: { finished in
                 self.bottomViewHidden = true
             })
-        
     }
     
     func unhideBottomView(view: UIView?) {
-
             UIView.animate(withDuration: 0.3, delay: 0.0, options: UIView.AnimationOptions.curveEaseInOut, animations: {
                 view?.frame = CGRect(x: 0, y: self.screenHeight - 70, width: self.screenWidth, height: 70)
             }, completion: { finished in
                 self.bottomViewHidden = false
             })
-        
     }
     
 //    func removeBottomView() {

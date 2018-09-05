@@ -18,7 +18,6 @@
 		2E00D07D213EE8D700376B0A /* AnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E00D07C213EE8D700376B0A /* AnnotationView.swift */; };
 		2E00D081213FDA1E00376B0A /* ModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E00D080213FDA1E00376B0A /* ModalViewController.swift */; };
 		2E00D083213FDAE800376B0A /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E00D082213FDAE800376B0A /* UIViewExtension.swift */; };
-		2E00D086213FDE8800376B0A /* BottomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E00D085213FDE8800376B0A /* BottomView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,7 +34,6 @@
 		2E00D07C213EE8D700376B0A /* AnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationView.swift; sourceTree = "<group>"; };
 		2E00D080213FDA1E00376B0A /* ModalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalViewController.swift; sourceTree = "<group>"; };
 		2E00D082213FDAE800376B0A /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
-		2E00D085213FDE8800376B0A /* BottomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,7 +70,6 @@
 			children = (
 				2E00D061213D766B00376B0A /* AppDelegate.swift */,
 				2E00D063213D766B00376B0A /* MapViewController.swift */,
-				2E00D085213FDE8800376B0A /* BottomView.swift */,
 				2E00D073213E733800376B0A /* Annotation.swift */,
 				2E00D07C213EE8D700376B0A /* AnnotationView.swift */,
 				2E00D080213FDA1E00376B0A /* ModalViewController.swift */,
@@ -183,7 +180,6 @@
 				2E00D064213D766B00376B0A /* MapViewController.swift in Sources */,
 				2E00D081213FDA1E00376B0A /* ModalViewController.swift in Sources */,
 				2E00D07D213EE8D700376B0A /* AnnotationView.swift in Sources */,
-				2E00D086213FDE8800376B0A /* BottomView.swift in Sources */,
 				2E00D074213E733800376B0A /* Annotation.swift in Sources */,
 				2E00D062213D766B00376B0A /* AppDelegate.swift in Sources */,
 			);
