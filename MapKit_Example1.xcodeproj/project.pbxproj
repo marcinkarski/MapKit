@@ -16,6 +16,7 @@
 		2E00D077213E873300376B0A /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E00D076213E873300376B0A /* MapKit.framework */; };
 		2E00D079213EC97A00376B0A /* Locations.json in Resources */ = {isa = PBXBuildFile; fileRef = 2E00D078213EC97A00376B0A /* Locations.json */; };
 		2E00D07D213EE8D700376B0A /* AnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E00D07C213EE8D700376B0A /* AnnotationView.swift */; };
+		2E00D07F213FD12900376B0A /* ModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E00D07E213FD12900376B0A /* ModalViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		2E00D076213E873300376B0A /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		2E00D078213EC97A00376B0A /* Locations.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Locations.json; sourceTree = "<group>"; };
 		2E00D07C213EE8D700376B0A /* AnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationView.swift; sourceTree = "<group>"; };
+		2E00D07E213FD12900376B0A /* ModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +68,7 @@
 			children = (
 				2E00D061213D766B00376B0A /* AppDelegate.swift */,
 				2E00D063213D766B00376B0A /* MapViewController.swift */,
+				2E00D07E213FD12900376B0A /* ModalViewController.swift */,
 				2E00D073213E733800376B0A /* Annotation.swift */,
 				2E00D07C213EE8D700376B0A /* AnnotationView.swift */,
 				2E00D065213D766B00376B0A /* Main.storyboard */,
@@ -163,6 +166,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2E00D064213D766B00376B0A /* MapViewController.swift in Sources */,
+				2E00D07F213FD12900376B0A /* ModalViewController.swift in Sources */,
 				2E00D07D213EE8D700376B0A /* AnnotationView.swift in Sources */,
 				2E00D074213E733800376B0A /* Annotation.swift in Sources */,
 				2E00D062213D766B00376B0A /* AppDelegate.swift in Sources */,

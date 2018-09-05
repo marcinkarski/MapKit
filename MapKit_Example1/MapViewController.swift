@@ -1,7 +1,28 @@
 import UIKit
 import MapKit
 
+enum BottomViewState {
+    case expanded, minimized
+}
+
 class MapViewController: UIViewController {
+    
+    var runningAnimators = [Int: UIViewPropertyAnimator]()
+    var progressWhenInterrupted: CGFloat = 0
+    
+    lazy var width: CGFloat = { return self.view.frame.width - 12}()
+    lazy var topFrame: CGRect = { return CGRect(x: 6, y: 400, width: self.width, height: self.view.frame.height) }()
+    lazy var bottomFrame: CGRect = { return CGRect(x: 6, y: self.view.frame.height, width: self.width, height: self.view.frame.height) }()
+    lazy var totalVerticalDistance: CGFloat = { self.bottomFrame.minY - self.topFrame.minY }()
+    
+    var viewState: BottomViewState = .minimized
+    
+    lazy var bottomView: UIView = {
+        let view = UIView(frame: .zero)
+        view.backgroundColor = .white
+        view.layer.cornerRadius = 4
+        return view
+    }()
     
     private lazy var mapView = MKMapView(frame: view.bounds)
     
@@ -29,6 +50,11 @@ class MapViewController: UIViewController {
         super.viewDidLoad()
         loadInitialData()
         mapView.addAnnotations(annotations)
+        
+        bottomView.frame = bottomFrame
+
+        bottomView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(bottomViewTapped)))
+        bottomView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(bottomViewPanned)))
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -39,6 +65,7 @@ class MapViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         checkLocationServices()
+        view.addSubview(bottomView)
     }
     
     fileprivate func configureMapView() {
@@ -80,9 +107,95 @@ class MapViewController: UIViewController {
             print("Access denied - likely parental controls are restricting use in this app.")
         }
     }
+    
+    func animateTransitionIfNeeded(state: BottomViewState, duration: TimeInterval) {
+        if runningAnimators.isEmpty {
+            let frameAnimator = UIViewPropertyAnimator(duration: duration, dampingRatio: 1) {
+                switch state {
+                case .minimized:
+                    self.bottomView.frame = self.topFrame
+                case .expanded:
+                    self.bottomView.frame = self.bottomFrame
+                }
+            }
+            
+            let identifier = frameAnimator.hash
+            frameAnimator.addCompletion { position in
+                self.cleanup(animatorWithId: identifier, at: position)
+            }
+            
+            frameAnimator.startAnimation()
+            runningAnimators[identifier] = frameAnimator
+        }
+    }
+    
+    @objc func bottomViewPanned(gesture: UIPanGestureRecognizer) {
+        let translation = gesture.translation(in: bottomView)
+        let verticalTranslation = viewState == .minimized ? -translation.y : translation.y
+        let fraction = (verticalTranslation / totalVerticalDistance) + progressWhenInterrupted
+        
+        switch gesture.state {
+        case .began:
+            animateTransitionIfNeeded(state: viewState, duration: 0.5)
+            
+            runningAnimators.forEach { $1.pauseAnimation() }
+            progressWhenInterrupted = runningAnimators.first?.value.fractionComplete ?? 0
+        case .changed:
+            runningAnimators.forEach { $1.fractionComplete = fraction }
+        case .ended:
+            let velocity = gesture.velocity(in: bottomView)
+            
+            switch viewState {
+            case .minimized:
+                if velocity.y > -500 && fraction < 0.5 {
+                    runningAnimators.forEach { $1.isReversed = !$1.isReversed }
+                }
+            case .expanded:
+                if velocity.y < 500 && fraction < 0.5 {
+                    runningAnimators.forEach { $1.isReversed = !$1.isReversed }
+                }
+            }
+            
+            runningAnimators.forEach { $1.continueAnimation(withTimingParameters: nil, durationFactor: 1) }
+        default:
+            break
+        }
+    }
+    
+    @objc func bottomViewTapped(gesture: UITapGestureRecognizer) {
+        let imageController = ModalViewController()
+        imageController.modalPresentationStyle = .overCurrentContext
+        present(imageController, animated: true, completion: nil)
+    }
+    
+    private func annotationTapped() {
+        if runningAnimators.isEmpty {
+            animateTransitionIfNeeded(state: viewState, duration: 0.5)
+        } else {
+            runningAnimators.forEach { $1.isReversed = !$1.isReversed }
+        }
+    }
+    
+    func cleanup(animatorWithId identifier: Int, at position: UIViewAnimatingPosition) {
+        if position == .end {
+            switch self.bottomView.frame {
+            case self.bottomFrame:
+                self.viewState = .minimized
+            case self.topFrame:
+                self.viewState = .expanded
+            default:
+                break
+            }
+        }
+        self.runningAnimators.removeValue(forKey: identifier)
+    }
 }
 
 extension MapViewController: MKMapViewDelegate {
+    
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        annotationTapped()
+    }
     
 //    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? { guard annotation is Annotation else { return nil }
 //        let identifier = "marker"
