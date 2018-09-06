@@ -43,7 +43,16 @@ class ModalViewController: UIViewController {
         
         view.addSubview(closeButton)
         view.addSubview(heartButton)
-        closeButton.anchor(view.topAnchor, left: nil, bottom: nil, right: view.rightAnchor, topConstant: 40, leftConstant: 0, bottomConstant: 0, rightConstant: 20, widthConstant: 25, heightConstant: 25)
-        heartButton.anchor(nil, left: nil, bottom: view.bottomAnchor, right: view.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 20, rightConstant: 20, widthConstant: 30, heightConstant: 30)
+        
+        // MARK: Refactor later
+        closeButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 40).isActive = true
+        closeButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20).isActive = true
+//        closeButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
+//        closeButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
+        heartButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 40).isActive = true
+        heartButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20).isActive = true
+//        heartButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
+//        heartButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
+        
     }
 }

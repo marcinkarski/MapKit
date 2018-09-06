@@ -1,6 +1,27 @@
 import UIKit
 import MapKit
 
+class BottomView: UIView {
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.configure()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    fileprivate func configure() {
+        backgroundColor = .white
+        layer.cornerRadius = 5
+        layer.shadowOffset = CGSize(width: 0.2, height: 0.2)
+        layer.shadowOpacity = 0.5
+        layer.shadowRadius = 0.5
+        
+    }
+}
+
 enum BottomViewState {
     case expanded, minimized
 }
@@ -10,10 +31,7 @@ class MapViewController: UIViewController {
     var runningAnimators = [Int: UIViewPropertyAnimator]()
     var progressWhenInterrupted: CGFloat = 0
     
-    lazy var width: CGFloat = { return self.view.frame.width - 8 }()
-    lazy var topFrame: CGRect = { return CGRect(x: 4, y: self.view.frame.height / 1.2, width: self.width, height: self.view.frame.height / 8) }()
-    lazy var bottomFrame: CGRect = { return CGRect(x: 4, y: self.view.frame.height, width: self.width, height: self.view.frame.height / 8) }()
-    lazy var totalVerticalDistance: CGFloat = { self.bottomFrame.minY - self.topFrame.minY }()
+
     
     private lazy var mapView = MKMapView(frame: view.bounds)
     
@@ -26,12 +44,7 @@ class MapViewController: UIViewController {
     
     var viewState: BottomViewState = .minimized
     
-    lazy var bottomView: UIView = {
-        let view = UIView(frame: .zero)
-        view.backgroundColor = .lightGray
-        view.layer.cornerRadius = 4
-        return view
-    }()
+    lazy var bottomView = BottomView(frame: .zero)
     
     var annotations: [Annotation] = []
     
