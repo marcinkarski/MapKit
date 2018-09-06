@@ -18,6 +18,7 @@
 		2E00D07D213EE8D700376B0A /* AnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E00D07C213EE8D700376B0A /* AnnotationView.swift */; };
 		2E00D081213FDA1E00376B0A /* ModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E00D080213FDA1E00376B0A /* ModalViewController.swift */; };
 		2E00D083213FDAE800376B0A /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E00D082213FDAE800376B0A /* UIViewExtension.swift */; };
+		2EEC543F21412F590035DFC9 /* BottomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EEC543E21412F590035DFC9 /* BottomView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		2E00D07C213EE8D700376B0A /* AnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationView.swift; sourceTree = "<group>"; };
 		2E00D080213FDA1E00376B0A /* ModalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalViewController.swift; sourceTree = "<group>"; };
 		2E00D082213FDAE800376B0A /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
+		2EEC543E21412F590035DFC9 /* BottomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,10 +71,9 @@
 			isa = PBXGroup;
 			children = (
 				2E00D061213D766B00376B0A /* AppDelegate.swift */,
-				2E00D063213D766B00376B0A /* MapViewController.swift */,
-				2E00D073213E733800376B0A /* Annotation.swift */,
-				2E00D07C213EE8D700376B0A /* AnnotationView.swift */,
-				2E00D080213FDA1E00376B0A /* ModalViewController.swift */,
+				2EEC5442214130810035DFC9 /* Models */,
+				2EEC5441214130570035DFC9 /* Controllers */,
+				2EEC5440214130460035DFC9 /* Views */,
 				2E00D084213FDC4D00376B0A /* Extensions */,
 				2E00D065213D766B00376B0A /* Main.storyboard */,
 				2E00D068213D766D00376B0A /* Assets.xcassets */,
@@ -97,6 +98,32 @@
 				2E00D082213FDAE800376B0A /* UIViewExtension.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		2EEC5440214130460035DFC9 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				2E00D07C213EE8D700376B0A /* AnnotationView.swift */,
+				2EEC543E21412F590035DFC9 /* BottomView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		2EEC5441214130570035DFC9 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				2E00D063213D766B00376B0A /* MapViewController.swift */,
+				2E00D080213FDA1E00376B0A /* ModalViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		2EEC5442214130810035DFC9 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				2E00D073213E733800376B0A /* Annotation.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -180,6 +207,7 @@
 				2E00D064213D766B00376B0A /* MapViewController.swift in Sources */,
 				2E00D081213FDA1E00376B0A /* ModalViewController.swift in Sources */,
 				2E00D07D213EE8D700376B0A /* AnnotationView.swift in Sources */,
+				2EEC543F21412F590035DFC9 /* BottomView.swift in Sources */,
 				2E00D074213E733800376B0A /* Annotation.swift in Sources */,
 				2E00D062213D766B00376B0A /* AppDelegate.swift in Sources */,
 			);
