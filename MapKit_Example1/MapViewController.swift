@@ -1,7 +1,39 @@
 import UIKit
 import MapKit
 
+class BottomView: UIView {
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.configure()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    fileprivate func configure() {
+        backgroundColor = .white
+        layer.cornerRadius = 5
+        layer.shadowOffset = CGSize(width: 0.2, height: 0.2)
+        layer.shadowOpacity = 0.5
+        layer.shadowRadius = 0.5
+    }
+}
+
+enum BottomViewState {
+    case expanded, minimized
+}
+
 class MapViewController: UIViewController {
+    
+    var runningAnimators = [Int: UIViewPropertyAnimator]()
+    var progressWhenInterrupted: CGFloat = 0
+    
+    lazy var width: CGFloat = { return self.view.frame.width - 8 }()
+    lazy var topFrame: CGRect = { return CGRect(x: 4, y: self.view.frame.height / 1.2, width: self.width, height: self.view.frame.height / 8) }()
+    lazy var bottomFrame: CGRect = { return CGRect(x: 4, y: self.view.frame.height, width: self.width, height: self.view.frame.height / 8) }()
+    lazy var totalVerticalDistance: CGFloat = { self.bottomFrame.minY - self.topFrame.minY }()
     
     private lazy var mapView = MKMapView(frame: view.bounds)
     
@@ -11,6 +43,10 @@ class MapViewController: UIViewController {
         manager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
         return manager
     }()
+    
+    var viewState: BottomViewState = .minimized
+    
+    lazy var bottomView = BottomView(frame: .zero)
     
     var annotations: [Annotation] = []
     
@@ -39,6 +75,62 @@ class MapViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         checkLocationServices()
+        addBottomView()
+        bottomView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(bottomViewTapped)))
+    }
+    
+    @objc func bottomViewTapped(gesture: UITapGestureRecognizer) {
+        let imageController = ModalViewController()
+        imageController.modalPresentationStyle = .overCurrentContext
+        present(imageController, animated: true, completion: nil)
+    }
+    
+    func animateTransitionIfNeeded(state: BottomViewState, duration: TimeInterval) {
+        if runningAnimators.isEmpty {
+            let frameAnimator = UIViewPropertyAnimator(duration: duration, dampingRatio: 1) {
+                switch state {
+                case .minimized:
+                    self.bottomView.frame = self.topFrame
+                case .expanded:
+                    self.bottomView.frame = self.bottomFrame
+                }
+            }
+            
+            let identifier = frameAnimator.hash
+            frameAnimator.addCompletion { position in
+                self.cleanup(animatorWithId: identifier, at: position)
+            }
+            
+            frameAnimator.startAnimation()
+            runningAnimators[identifier] = frameAnimator
+        }
+    }
+    
+    func cleanup(animatorWithId identifier: Int, at position: UIViewAnimatingPosition) {
+        if position == .end {
+            switch self.bottomView.frame {
+            case self.bottomFrame:
+                self.viewState = .minimized
+            case self.topFrame:
+                self.viewState = .expanded
+            default:
+                break
+            }
+        }
+        self.runningAnimators.removeValue(forKey: identifier)
+    }
+    
+    func addBottomView() {
+        bottomView.frame = bottomFrame
+        view.addSubview(bottomView)
+    }
+    
+    func annotationViewTapped() {
+        if runningAnimators.isEmpty {
+            animateTransitionIfNeeded(state: viewState, duration: 0.5)
+        } else {
+            runningAnimators.forEach { $1.isReversed = !$1.isReversed }
+        }
     }
     
     fileprivate func configureMapView() {
@@ -83,6 +175,14 @@ class MapViewController: UIViewController {
 }
 
 extension MapViewController: MKMapViewDelegate {
+    
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        annotationViewTapped()
+    }
+    
+    func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
+        annotationViewTapped()
+    }
     
 //    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? { guard annotation is Annotation else { return nil }
 //        let identifier = "marker"
