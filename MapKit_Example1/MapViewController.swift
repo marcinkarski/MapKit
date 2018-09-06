@@ -18,7 +18,6 @@ class BottomView: UIView {
         layer.shadowOffset = CGSize(width: 0.2, height: 0.2)
         layer.shadowOpacity = 0.5
         layer.shadowRadius = 0.5
-        
     }
 }
 
@@ -31,7 +30,10 @@ class MapViewController: UIViewController {
     var runningAnimators = [Int: UIViewPropertyAnimator]()
     var progressWhenInterrupted: CGFloat = 0
     
-
+    lazy var width: CGFloat = { return self.view.frame.width - 8 }()
+    lazy var topFrame: CGRect = { return CGRect(x: 4, y: self.view.frame.height / 1.2, width: self.width, height: self.view.frame.height / 8) }()
+    lazy var bottomFrame: CGRect = { return CGRect(x: 4, y: self.view.frame.height, width: self.width, height: self.view.frame.height / 8) }()
+    lazy var totalVerticalDistance: CGFloat = { self.bottomFrame.minY - self.topFrame.minY }()
     
     private lazy var mapView = MKMapView(frame: view.bounds)
     
